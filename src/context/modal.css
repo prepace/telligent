@@ -1,0 +1,39 @@
+#modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0);
+  z-index: 2;
+}
+
+#modal-background {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+#modal-content {
+  position: absolute;
+  right: 0;
+  width: 0; /* Set your desired width */
+  background-color: white; /* Modal content background color */
+  animation: slide-in 500ms ease forwards; /* Apply the sliding animation */
+}
+
+/* Slide-in animation */
+@keyframes slide-in {
+  0% {
+    width: 0; /* Initially off-screen */
+  }
+  100% {
+    width: 280px; /* End at the desired position */
+  }
+}
