@@ -1,6 +1,8 @@
 "use client"
 
 import UserSidebar from "@/components/UserSidebar"
+import logo from "../../public/logo.png"
+import Image from "next/image"
 
 import { Button } from "./ui/button"
 import { Search, Menu, User, Bell } from "lucide-react"
@@ -33,6 +35,11 @@ export default function Header() {
             Sign In
           </span>
         </div>
+
+        <div>
+          <Image src={logo} alt="blank" className="h-[35px] w-auto"/>
+        </div>
+
         <div className="flex items-center space-x-4">
           <Button variant="outline" size="sm" className="hidden md:flex cursor-pointer">
             Subscribe
