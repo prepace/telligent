@@ -3,6 +3,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import { usePathname } from "next/navigation";
 import { ModalProvider, Modal } from "@/context/modal";
+import { AuthContextProvider } from "@/context/AuthProvider";
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -34,6 +35,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased relative`}
       >
+        <AuthContextProvider>
         <ModalProvider >
           <Modal />
           <Header />
@@ -42,6 +44,7 @@ export default function RootLayout({
           {children}
           {!pathname.startsWith("/admin") && <Footer />}
         </ModalProvider >
+        </AuthContextProvider>
       </body>
     </html>
   );

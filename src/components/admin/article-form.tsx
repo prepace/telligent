@@ -1,20 +1,26 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Card, CardContent } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Switch } from "@/components/ui/switch"
-import { createArticle, updateArticle } from "@/lib/articles"
-import { useRouter } from "next/navigation"
-import { RichTextEditor } from "@/components/admin/rich-text-editor"
-import { ImageUpload } from "@/components/admin/image-upload"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Card, CardContent } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Switch } from "@/components/ui/switch";
+import { createArticle, updateArticle } from "@/lib/articles";
+import { useRouter } from "next/navigation";
+import { RichTextEditor } from "@/components/Admin/rich-text-editor";
+import { ImageUpload } from "@/components/Admin/image-upload";
 
 // Mock categories
 const categories = [
@@ -26,11 +32,11 @@ const categories = [
   { id: "6", name: "Entertainment" },
   { id: "7", name: "Sports" },
   { id: "8", name: "Environment" },
-]
+];
 
 export function ArticleForm({ article }: { article?: any }) {
-  const router = useRouter()
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     title: article?.title || "",
     slug: article?.slug || "",
@@ -43,62 +49,64 @@ export function ArticleForm({ article }: { article?: any }) {
     isFeatured: article?.isFeatured || false,
     metaTitle: article?.metaTitle || "",
     metaDescription: article?.metaDescription || "",
-  })
+  });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSelectChange = (name: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSwitchChange = (name: string, checked: boolean) => {
-    setFormData((prev) => ({ ...prev, [name]: checked }))
-  }
+    setFormData((prev) => ({ ...prev, [name]: checked }));
+  };
 
   const handleContentChange = (content: string) => {
-    setFormData((prev) => ({ ...prev, content }))
-  }
+    setFormData((prev) => ({ ...prev, content }));
+  };
 
   const handleImageUpload = (url: string) => {
-    setFormData((prev) => ({ ...prev, featuredImage: url }))
-  }
+    setFormData((prev) => ({ ...prev, featuredImage: url }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
+    e.preventDefault();
+    setIsSubmitting(true);
 
     try {
       if (article) {
         await updateArticle(article.id, {
           ...formData,
           status: formData.isPublished ? "Published" : "Draft",
-        })
+        });
       } else {
         await createArticle({
           ...formData,
           status: formData.isPublished ? "Published" : "Draft",
-        })
+        });
       }
 
-      router.push("/admin/articles")
+      router.push("/admin/articles");
     } catch (error) {
-      console.error("Error saving article:", error)
+      console.error("Error saving article:", error);
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   const generateSlug = () => {
     const slug = formData.title
       .toLowerCase()
       .replace(/[^\w\s]/gi, "")
-      .replace(/\s+/g, "-")
+      .replace(/\s+/g, "-");
 
-    setFormData((prev) => ({ ...prev, slug }))
-  }
+    setFormData((prev) => ({ ...prev, slug }));
+  };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
@@ -162,7 +170,10 @@ export function ArticleForm({ article }: { article?: any }) {
 
             <div className="grid gap-2">
               <Label htmlFor="content">Content</Label>
-              <RichTextEditor value={formData.content} onChange={handleContentChange} />
+              <RichTextEditor
+                value={formData.content}
+                onChange={handleContentChange}
+              />
             </div>
           </div>
         </TabsContent>
@@ -173,7 +184,10 @@ export function ArticleForm({ article }: { article?: any }) {
               <div className="grid gap-6">
                 <div className="grid gap-2">
                   <Label>Featured Image</Label>
-                  <ImageUpload value={formData.featuredImage} onChange={handleImageUpload} />
+                  <ImageUpload
+                    value={formData.featuredImage}
+                    onChange={handleImageUpload}
+                  />
                 </div>
               </div>
             </CardContent>
@@ -217,7 +231,12 @@ export function ArticleForm({ article }: { article?: any }) {
               <div className="grid gap-6">
                 <div className="grid gap-2">
                   <Label htmlFor="category">Category</Label>
-                  <Select value={formData.category} onValueChange={(value) => handleSelectChange("category", value)}>
+                  <Select
+                    value={formData.category}
+                    onValueChange={(value) =>
+                      handleSelectChange("category", value)
+                    }
+                  >
                     <SelectTrigger>
                       <SelectValue placeholder="Select a category" />
                     </SelectTrigger>
@@ -246,7 +265,9 @@ export function ArticleForm({ article }: { article?: any }) {
                   <Switch
                     id="isPublished"
                     checked={formData.isPublished}
-                    onCheckedChange={(checked) => handleSwitchChange("isPublished", checked)}
+                    onCheckedChange={(checked) =>
+                      handleSwitchChange("isPublished", checked)
+                    }
                   />
                   <Label htmlFor="isPublished">Publish article</Label>
                 </div>
@@ -255,7 +276,9 @@ export function ArticleForm({ article }: { article?: any }) {
                   <Switch
                     id="isFeatured"
                     checked={formData.isFeatured}
-                    onCheckedChange={(checked) => handleSwitchChange("isFeatured", checked)}
+                    onCheckedChange={(checked) =>
+                      handleSwitchChange("isFeatured", checked)
+                    }
                   />
                   <Label htmlFor="isFeatured">Feature on homepage</Label>
                 </div>
@@ -266,14 +289,21 @@ export function ArticleForm({ article }: { article?: any }) {
       </Tabs>
 
       <div className="flex justify-end space-x-4">
-        <Button type="button" variant="outline" onClick={() => router.push("/admin/articles")}>
+        <Button
+          type="button"
+          variant="outline"
+          onClick={() => router.push("/admin/articles")}
+        >
           Cancel
         </Button>
         <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Saving..." : article ? "Update Article" : "Create Article"}
+          {isSubmitting
+            ? "Saving..."
+            : article
+            ? "Update Article"
+            : "Create Article"}
         </Button>
       </div>
     </form>
-  )
+  );
 }
-

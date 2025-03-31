@@ -1,11 +1,14 @@
 "use client"
 
 import type React from "react"
-import { useState, useEffect } from "react"
+
 import Link from "next/link"
 import Image from "next/image"
+
+import { useState, useEffect } from "react"
 import { Home, FileText, PlusCircle, Bookmark, User, Settings, HelpCircle, LogOut, Brain, Menu } from "lucide-react"
 import { usePathname } from "next/navigation"
+import { useAuth } from "@/context/AuthProvider"
 
 type SidebarItem = {
   name: string
@@ -15,6 +18,7 @@ type SidebarItem = {
 }
 
 export default function UserSidebar() {
+  const { user } = useAuth()
   const [isMobile, setIsMobile] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
   const [activeCategory, setActiveCategory] = useState<string | null>(null)
@@ -86,8 +90,8 @@ export default function UserSidebar() {
                 />
               </div>
               <div>
-                <h3 className="font-medium text-gray-800">Jane Smith</h3>
-                <p className="text-xs text-gray-500">Mental Health Writer</p>
+                <h3 className="font-medium text-gray-800">{user?.first_name} {user?.last_name}</h3>
+                <p className="text-xs text-gray-500">{(user?.role === "writer") && "Mental Health Writer"}</p>
               </div>
             </div>
           ) : (
@@ -102,9 +106,9 @@ export default function UserSidebar() {
                 />
               </div>
               <div className="absolute left-full ml-2 top-0 w-max bg-gray-800 text-white text-xs rounded py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-                Jane Smith
+                {user?.first_name} {user?.last_name}
                 <br />
-                Mental Health Writer
+                {(user?.role === "writer") && "Mental Health Writer"}
               </div>
             </div>
           )}

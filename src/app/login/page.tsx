@@ -1,16 +1,23 @@
 "use client"
 
 import { useState } from "react"
+import { FcGoogle } from "react-icons/fc";
+import { IoLogoApple } from "react-icons/io5";
+import { login } from "@/actions/auth"
+
+
 import Link from "next/link"
 
-export default function SignupPage() {
+export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
-  const [firstName, setFirstName] = useState("")
-  const [lastName, setLastName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState("")
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    const response = await login(email, password)
+  }
 
   return (
     <div className="min-h-screen bg-neutral-200 flex items-center justify-center p-4">
@@ -29,38 +36,15 @@ export default function SignupPage() {
           </svg>
         </div>
 
-        <h1 className="text-2xl font-bold text-center mb-2">Sign up for your Health account</h1>
+        <h1 className="text-2xl font-bold text-center mb-2">Login to your Health account</h1>
         <p className="text-center mb-6">
-          Already have an account?{" "}
-          <Link href="/signin" className="text-black font-semibold">
-            Sign in
+          Don't have an account?{" "}
+          <Link href="/register" className="text-black font-semibold">
+            Register
           </Link>
         </p>
 
         <form className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <input
-                type="text"
-                placeholder="First name"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400"
-                required
-              />
-            </div>
-            <div>
-              <input
-                type="text"
-                placeholder="Last name"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400"
-                required
-              />
-            </div>
-          </div>
-
           <div>
             <input
               type="email"
@@ -68,7 +52,6 @@ export default function SignupPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400"
-              required
             />
           </div>
 
@@ -79,14 +62,13 @@ export default function SignupPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 pr-10"
-              required
             />
             <button
               type="button"
               className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
               onClick={() => setShowPassword(!showPassword)}
             >
-              {showPassword ? (
+              {!showPassword ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"
@@ -122,58 +104,17 @@ export default function SignupPage() {
             </button>
           </div>
 
-          <div className="relative">
-            <input
-              type={showConfirmPassword ? "text" : "password"}
-              placeholder="Confirm password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400 pr-10"
-              required
-            />
-            <button
-              type="button"
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
-              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-            >
-              {showConfirmPassword ? (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
-                  <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path>
-                  <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path>
-                  <line x1="2" x2="22" y1="2" y2="22"></line>
-                </svg>
-              ) : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
-                  <circle cx="12" cy="12" r="3"></circle>
-                </svg>
-              )}
-            </button>
+          <div>
+            <Link href="#" className="text-sm text-black">
+              Forgot password?
+            </Link>
           </div>
 
-          <button type="submit" className="w-full bg-black hover:bg-black/90 text-white py-2 px-4 rounded-md">
-            Sign up
+          <button 
+            onClick={handleSubmit}
+            type="submit" 
+            className="w-full bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md">
+            Login
           </button>
         </form>
 
@@ -210,10 +151,12 @@ export default function SignupPage() {
 
         <div className="space-y-3">
           <button className="w-full flex items-center justify-center gap-2 h-12 border border-gray-300 rounded-md hover:bg-gray-50">
+            <FcGoogle className="text-[20px]"/>
             Continue with Google
           </button>
 
           <button className="w-full flex items-center justify-center gap-2 h-12 border border-gray-300 rounded-md hover:bg-gray-50">
+            <IoLogoApple className="text-[20px]"/>
             Continue with Apple
           </button>
         </div>
@@ -221,4 +164,3 @@ export default function SignupPage() {
     </div>
   )
 }
-
