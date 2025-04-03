@@ -10,3 +10,4 @@ if (!process.env.SERVICE_ROLE_KEY) {
 export const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SERVICE_ROLE_KEY);
 
 const { data, error } = await supabase
+

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import EditingMode from "@/components/CreateArticle/editing-mode";
 import ViewMode from "@/components/CreateArticle/view-mode";
@@ -14,12 +14,14 @@ export default function ArticleSubmissionPage() {
   const [slug, setSlug] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [featuredImage, setFeaturedImage] = useState<File | null>(null);
+  const [imageDescription, setImageDescription] = useState<string>("");
   const [content, setContent] = useState<string>("");
-  const [tags, setTags] = useState<Array<string>>([]);
+  const [tags, setTags] = useState<string[]>([]);
+  const [tagsInput, setTagsInput] = useState<string>("");
   const [metaTitle, setMetaTitle] = useState<string>("");
   const [metaDescription, setMetaDescription] = useState<string>("");
   const [status, setStatus] = useState<string>("");
-  const [publishDate, setPublishDate] = useState<Date | null>(null);
+  const [publishDate, setPublishDate] = useState<string>("");
 
   const changeMode = () => {
     if (mode === "editing") {
@@ -28,6 +30,37 @@ export default function ArticleSubmissionPage() {
       setMode("editing")
     };
   };
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+
+    console.log('hello')
+
+    const formData = new FormData();
+
+    formData.append("title", title);
+    formData.append("author_name", authorName);
+    formData.append("author_Email", authorEmail);
+    formData.append("category", category);
+    formData.append("slug", slug);
+    formData.append("description", description);
+    formData.append("image_description", imageDescription);
+    formData.append("content", content);
+    formData.append("tags", JSON.stringify(tags)); // Convert array to JSON string
+    formData.append("meta_title", metaTitle);
+    formData.append("meta_description", metaDescription);
+    formData.append("status", status);
+    formData.append("publish_date", publishDate);
+
+    if (featuredImage) {
+      formData.append("featured_image", featuredImage); // File object
+    }
+
+    const response = fetch('/api/articles/', {
+      method: 'POST',
+      body: formData,
+    });
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -52,17 +85,59 @@ export default function ArticleSubmissionPage() {
             </button>
             <button
               type="button"
-              className="ml-3 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              onClick={handleSubmit}
+              className="ml-3 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none"
             >
               Publish
             </button>
           </div>
         </div>
-        {mode === "editing" && <EditingMode  setTitle={setTitle} setAuthorName={setAuthorName} setAuthorEmail={setAuthorEmail} setCategory={setCategory}
-          setDescription={setDescription} setFeaturedImage={setFeaturedImage} setContent={setContent} title={title} authorName={authorName} authorEmail={authorEmail}
-          category={category} description={description} featuredImage={featuredImage} content={content} />}
-        {mode === "viewing" && <ViewMode title={title} authorName={authorName} authorEmail={authorEmail} category={category}
-          description={description} featuredImage={featuredImage} content={content}/>}
+        {mode === "editing" && <EditingMode  
+          setImageDescription={setImageDescription} 
+          setMetaDescription={setMetaDescription}
+          setFeaturedImage={setFeaturedImage} 
+          setAuthorEmail={setAuthorEmail} 
+          setDescription={setDescription} 
+          setPublishDate={setPublishDate} 
+          setAuthorName={setAuthorName}
+          setMetaTitle={setMetaTitle}
+          setTagsInput={setTagsInput} 
+          handleSubmit={handleSubmit}
+          setCategory={setCategory}
+          setContent={setContent} 
+          setStatus={setStatus} 
+          setTitle={setTitle} 
+          setSlug={setSlug}
+          setTags={setTags}
+          imageDescription={imageDescription} 
+          metaDescription={metaDescription}
+          featuredImage={featuredImage} 
+          publishDate={publishDate} 
+          authorEmail={authorEmail}
+          description={description} 
+          authorName={authorName} 
+          metaTitle={metaTitle}
+          tagsInput={tagsInput}
+          category={category} 
+          content={content} 
+          status={status}
+          title={title} 
+          tags={tags}
+          slug={slug}
+          />
+        }
+        
+        {mode === "viewing" && <ViewMode 
+          title={title} 
+          authorName={authorName} 
+          authorEmail={authorEmail} 
+          category={category}
+          description={description} 
+          featuredImage={featuredImage} 
+          content={content} 
+          publishDate={publishDate}
+          tags={tags}
+        />}
       </main>
     </div>
   )

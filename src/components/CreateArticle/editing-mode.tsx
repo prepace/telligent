@@ -1,27 +1,92 @@
 "use client"
 
-import { ChevronDown, Upload, X } from "lucide-react"
-import { useState } from "react"
+import { ChevronDown, Upload, X } from "lucide-react";
+import { useState } from "react";
 
 interface ChildProps {
-  title: string;
-  setTitle: (value: string) => void;
-  authorName: string;
-  setAuthorName: (value: string) => void;
-  authorEmail: string;
-  setAuthorEmail: (value: string) => void;
-  category: string;
-  setCategory: (value: string) => void;
-  description: string;
-  setDescription: (value: string) => void;
-  featuredImage: File | null;
+  setImageDescription: (value: string) => void;
+  setMetaDescription: (value: string) => void;
   setFeaturedImage: (value: File | null) => void;
-  content: string;
+  setAuthorEmail: (value: string) => void;
+  setDescription: (value: string) => void;
+  setPublishDate: (value: string) => void;
+  setAuthorName: (value: string) => void;
+  setMetaTitle: (value: string) => void;
+  setTagsInput:(value: string) => void;
+  handleSubmit: (e: React.FormEvent) => void;
+  setCategory: (value: string) => void;
   setContent: (value: string) => void;
+  setStatus: (value: string) => void;
+  setTitle: (value: string) => void;
+  setTags: (value: string[]) => void;
+  setSlug: (value: string) => void;
+  tags: string[];
+  slug: string;
+  title: string;
+  status: string;
+  content: string;
+  category: string;
+  metaTitle: string;
+  tagsInput: string;
+  authorName: string;
+  authorEmail: string;
+  description: string;
+  publishDate: string;
+  featuredImage: File | null;
+  metaDescription: string;
+  imageDescription: string;
 }
 
-export default function EditingMode({ title, authorName, authorEmail, category, description, featuredImage, content, setTitle, 
-  setAuthorName, setAuthorEmail, setCategory, setDescription, setFeaturedImage, setContent }: ChildProps) {
+export default function EditingMode({ 
+    imageDescription, 
+    metaDescription,
+    featuredImage, 
+    authorEmail, 
+    description, 
+    publishDate,
+    authorName, 
+    metaTitle,
+    tagsInput,
+    category, 
+    content, 
+    status, 
+    title, 
+    tags,
+    slug,
+    setTags,
+    setSlug,
+    setTitle, 
+    setStatus,
+    setContent, 
+    setCategory, 
+    setTagsInput,
+    setMetaTitle,
+    handleSubmit, 
+    setAuthorName,
+    setPublishDate, 
+    setAuthorEmail, 
+    setDescription, 
+    setFeaturedImage,
+    setMetaDescription, 
+    setImageDescription, 
+  }: ChildProps) {
+
+  const handleInput = (event: any) => {
+    const value = event.target.value;
+    setTagsInput(value);
+    
+    if (event.key === ' ' || event.key === 'Enter') {
+      const newTag = value.trim();
+      if (newTag && !tags.includes(newTag)) {
+        setTags([...tags, newTag]);
+      }
+      setTagsInput('');
+    }
+  };
+
+  const deleteTag = (tagToDelete: string) => {
+    setTags(tags.filter(tag => tag !== tagToDelete));
+  };
 
   return (
     <div className="bg-white shadow overflow-hidden sm:rounded-lg">
@@ -36,6 +101,8 @@ export default function EditingMode({ title, authorName, authorEmail, category, 
               <input
                 type="text"
                 name="title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
                 id="title"
                 className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border"
                 placeholder="Enter a compelling title"
@@ -51,6 +118,8 @@ export default function EditingMode({ title, authorName, authorEmail, category, 
               <div className="mt-1">
                 <input
                   type="text"
+                  value={authorName}
+                  onChange={(e) => setAuthorName(e.target.value)}
                   name="author-name"
                   id="author-name"
                   className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border"
@@ -64,6 +133,8 @@ export default function EditingMode({ title, authorName, authorEmail, category, 
               <div className="mt-1">
                 <input
                   type="email"
+                  value={authorEmail}
+                  onChange={(e) => setAuthorEmail(e.target.value)}
                   name="author-email"
                   id="author-email"
                   className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border"
@@ -80,6 +151,8 @@ export default function EditingMode({ title, authorName, authorEmail, category, 
               <div className="mt-1 relative">
                 <select
                   id="category"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
                   name="category"
                   className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border appearance-none pr-10"
                 >
@@ -106,11 +179,30 @@ export default function EditingMode({ title, authorName, authorEmail, category, 
               <div className="mt-1">
                 <input
                   type="text"
+                  value={slug}
+                  onChange={(e) => setSlug(e.target.value)}
                   name="slug"
                   id="slug"
                   className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border"
                 />
               </div>
+            </div>
+          </div>
+          {/* Description */}
+          <div>
+            <label htmlFor="content" className="block text-sm font-medium text-gray-700">
+              Description
+            </label>
+            <div className="mt-1">
+              <textarea
+                id="description"
+                name="description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                rows={5}
+                className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border border-gray-300 rounded-md p-2 resize-none"
+                placeholder="Write your description here..."
+              ></textarea>
             </div>
           </div>
           {/* Featured Image */}
@@ -131,6 +223,23 @@ export default function EditingMode({ title, authorName, authorEmail, category, 
                 </div>
                 <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
               </div>
+            </div>
+          </div>
+          {/* Image Description */}
+          <div>
+            <label htmlFor="content" className="block text-sm font-medium text-gray-700">
+              Featured Image Description
+            </label>
+            <div className="mt-1">
+              <textarea
+                id="image-description"
+                name="image-description"
+                value={imageDescription}
+                onChange={(e) => setImageDescription(e.target.value)}
+                rows={5}
+                className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border border-gray-300 rounded-md p-2 resize-none"
+                placeholder="Write your image description here..."
+              ></textarea>
             </div>
           </div>
           {/* Article Content */}
@@ -158,14 +267,25 @@ export default function EditingMode({ title, authorName, authorEmail, category, 
             </label>
             <div className="mt-1">
               <div className="flex flex-wrap gap-2 p-2 border border-gray-300 rounded-md">
-                <div className="bg-blue-100 text-blue-800 rounded-full px-3 py-1 text-sm flex items-center">
-                  Example Tag <X className="ml-1 h-3 w-3 cursor-pointer" />
+                {tags.map((tag, index) => (
+                  <div key={index} className="bg-blue-100 text-blue-800 rounded-full px-3 py-1 text-sm flex items-center justify-center">
+                  {tag}
+                  <span 
+                    className="ml-1 h-3 w-3 cursor-pointer text-blue-800" 
+                    onClick={() => deleteTag(tag)}
+                  >
+                    <X className="h-[14px]"/>
+                  </span>
                 </div>
+                ))}
                 <input
                   type="text"
                   id="tags"
+                  value={tagsInput}
+                  onChange={(e) => setTagsInput(e.target.value)}
+                  onKeyUp={handleInput}
                   className="flex-grow outline-none text-sm"
-                  placeholder="Add tags separated by comma"
+                  placeholder="Add tags separated by space"
                 />
               </div>
             </div>
@@ -183,6 +303,8 @@ export default function EditingMode({ title, authorName, authorEmail, category, 
                 <div className="mt-1">
                   <input
                     type="text"
+                    value={metaTitle}
+                    onChange={(e) => setMetaTitle(e.target.value)}
                     name="meta-title"
                     id="meta-title"
                     className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border"
@@ -197,6 +319,8 @@ export default function EditingMode({ title, authorName, authorEmail, category, 
                 <div className="mt-1">
                   <textarea
                     id="meta-description"
+                    value={metaDescription}
+                    onChange={(e) => setMetaDescription(e.target.value)}
                     name="meta-description"
                     rows={3}
                     className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border border-gray-300 rounded-md p-2"
@@ -218,6 +342,8 @@ export default function EditingMode({ title, authorName, authorEmail, category, 
                   <select
                     id="publication-status"
                     name="publication-status"
+                    value={status}
+                    onChange={(e) => setStatus(e.target.value)}
                     className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border appearance-none pr-10"
                   >
                     <option value="draft">Draft</option>
@@ -229,19 +355,21 @@ export default function EditingMode({ title, authorName, authorEmail, category, 
                   </div>
                 </div>
               </div>
-              <div className="sm:col-span-3">
+              {status === "published" && <div className="sm:col-span-3">
                 <label htmlFor="publish-date" className="block text-sm font-medium text-gray-700">
                   Publish Date
                 </label>
                 <div className="mt-1">
                   <input
                     type="datetime-local"
+                    value={publishDate}
+                    onChange={(e) => setPublishDate(e.target.value)}
                     name="publish-date"
                     id="publish-date"
                     className="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border"
                   />
                 </div>
-              </div>
+              </div>}
             </div>
           </div>
           {/* Form Actions */}
