@@ -18,7 +18,7 @@ type SidebarItem = {
 }
 
 export default function UserSidebar() {
-  const { user } = useAuth()
+  const { user, signout } = useAuth()
   const [isMobile, setIsMobile] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
   const [activeCategory, setActiveCategory] = useState<string | null>(null)
@@ -190,6 +190,7 @@ export default function UserSidebar() {
             {/* Logout Item */}
             <li className="mt-6">
               <button
+                onClick={signout}
                 className={`flex items-center ${isMobile && !isExpanded ? "justify-center" : ""} w-full px-4 py-2 text-red-600 hover:bg-red-50 transition-colors`}
               >
                 <span className="relative group">

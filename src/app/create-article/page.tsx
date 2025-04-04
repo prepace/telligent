@@ -6,6 +6,7 @@ import EditingMode from "@/components/CreateArticle/editing-mode";
 import ViewMode from "@/components/CreateArticle/view-mode";
 
 export default function ArticleSubmissionPage() {
+  const date = new Date();
   const [mode, setMode] = useState<string>("editing");
   const [title, setTitle] = useState<string>("");
   const [authorName, setAuthorName] = useState<string>("");
@@ -21,7 +22,7 @@ export default function ArticleSubmissionPage() {
   const [metaTitle, setMetaTitle] = useState<string>("");
   const [metaDescription, setMetaDescription] = useState<string>("");
   const [status, setStatus] = useState<string>("");
-  const [publishDate, setPublishDate] = useState<string>("");
+  const [publishDate, setPublishDate] = useState<string>(date.toDateString());
 
   const changeMode = () => {
     if (mode === "editing") {
@@ -44,17 +45,19 @@ export default function ArticleSubmissionPage() {
     formData.append("category", category);
     formData.append("slug", slug);
     formData.append("description", description);
-    formData.append("image_description", imageDescription);
     formData.append("content", content);
     formData.append("tags", JSON.stringify(tags)); // Convert array to JSON string
     formData.append("meta_title", metaTitle);
     formData.append("meta_description", metaDescription);
     formData.append("status", status);
     formData.append("publish_date", publishDate);
+    formData.append("image_description", imageDescription);
 
     if (featuredImage) {
       formData.append("featured_image", featuredImage); // File object
     }
+
+    const token = localStorage.getItem('sb:token');
 
     const response = fetch('/api/articles/', {
       method: 'POST',

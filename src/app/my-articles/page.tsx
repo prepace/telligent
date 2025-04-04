@@ -1,7 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Search, ArrowUpDown, TrendingUp, Eye, Repeat, Calendar, SortAsc, SortDesc } from "lucide-react"
+import { Article } from "@/types/index"
 
 export default function ArticlesPage() {
   // This would typically come from a database
@@ -80,11 +81,12 @@ export default function ArticlesPage() {
     },
   ]
 
+  const [myArticles, setMyArticles] = useState<any[]>([])
   const [searchQuery, setSearchQuery] = useState("")
   const [sortOption, setSortOption] = useState("date-desc")
 
   // Filter articles based on search query
-  const searchFilteredArticles = userArticles.filter((article) => {
+  const searchFilteredArticles = myArticles.filter((article) => {
     return (
       article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       article.excerpt.toLowerCase().includes(searchQuery.toLowerCase())
@@ -129,6 +131,16 @@ export default function ArticlesPage() {
     { value: "reposts-asc", label: "Least Reposts", icon: <Repeat className="h-4 w-4" /> },
     { value: "trending", label: "Trending", icon: <TrendingUp className="h-4 w-4" /> },
   ]
+
+  useEffect(() => {
+    async function fetchArticles() {
+      const response = await fetch("/api/articles/");
+      const data = await response.json();
+      setMyArticles(data); // Updating the state with the fetched data
+    }
+
+    fetchArticles();
+  }, [])
 
   return (
     <div className="min-h-screen bg-gray-50 p-6 md:p-8">
@@ -214,25 +226,25 @@ export default function ArticlesPage() {
                 <div className="flex flex-1 flex-col p-4">
                   <div className="mb-2 flex items-center justify-between">
                     <span className="rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800">
-                      {article.category}
+                      {article?.category}
                     </span>
-                    <span className="text-xs text-gray-500">{article.readTime}</span>
+                    <span className="text-xs text-gray-500">{article?.readTime}</span>
                   </div>
-                  <h2 className="mb-2 line-clamp-2 text-lg font-semibold text-gray-900">{article.title}</h2>
-                  <p className="mb-4 flex-1 line-clamp-3 text-sm text-gray-600">{article.excerpt}</p>
+                  <h2 className="mb-2 line-clamp-2 text-lg font-semibold text-gray-900">{article?.title}</h2>
+                  <p className="mb-4 flex-1 line-clamp-3 text-sm text-gray-600">{article?.excerpt}</p>
                   <div className="mb-3 flex items-center gap-4 text-xs text-gray-500">
                     <div className="flex items-center gap-1">
                       <Eye className="h-3 w-3" />
-                      {article.views.toLocaleString()}
+                      {article?.views?.toLocaleString()}
                     </div>
                     <div className="flex items-center gap-1">
                       <Repeat className="h-3 w-3" />
-                      {article.reposts.toLocaleString()}
+                      {article?.reposts?.toLocaleString()}
                     </div>
                   </div>
                   <div className="mt-auto flex items-center justify-between border-t border-gray-100 pt-3">
                     <div className="text-xs text-gray-500">
-                      {new Date(article.date).toLocaleDateString("en-US", {
+                      {new Date(article?.created_at).toLocaleDateString("en-US", {
                         year: "numeric",
                         month: "short",
                         day: "numeric",

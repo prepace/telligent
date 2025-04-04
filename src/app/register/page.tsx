@@ -1,6 +1,9 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { register } from "@/actions/auth"
+
 import Link from "next/link"
 
 export default function SignupPage() {
@@ -11,6 +14,20 @@ export default function SignupPage() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
+
+  const router = useRouter();
+
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+
+    const response = await register(email, password, firstName, lastName);
+
+    if (response.success) {
+      alert('Signup successful!');
+      router.push("/")
+    }
+  }
 
   return (
     <div className="min-h-screen bg-neutral-200 flex items-center justify-center p-4">
@@ -172,7 +189,10 @@ export default function SignupPage() {
             </button>
           </div>
 
-          <button type="submit" className="w-full bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md">
+          <button 
+            type="submit" 
+            className="w-full bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md"
+            onClick={handleSubmit}>
             Register
           </button>
         </form>

@@ -68,7 +68,7 @@ export default function ViewMode({
 
           {featuredImage && <div className="relative aspect-video mb-6">
             <Image
-              src={featuredImage}
+              src={URL.createObjectURL(featuredImage)}
               alt="Mental health professionals in a discussion"
               fill
               className="object-cover"

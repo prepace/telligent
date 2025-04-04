@@ -206,7 +206,7 @@ export default function EditingMode({
             </div>
           </div>
           {/* Featured Image */}
-          <div>
+          {/* <div>
             <label className="block text-sm font-medium text-gray-700">Featured Image</label>
             <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
               <div className="space-y-1 text-center">
@@ -217,14 +217,65 @@ export default function EditingMode({
                     className="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500"
                   >
                     <span>Upload a file</span>
-                    <input id="file-upload" name="file-upload" type="file" className="sr-only" />
+                    <input id="file-upload" name="file-upload" type="file" className="sr-only" onChange={(e) => setFeaturedImage(e.target.files[0])}/>
                   </label>
                   <p className="pl-1">or drag and drop</p>
                 </div>
                 <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
               </div>
             </div>
+          </div> */}
+          <div>
+      <label className="block text-sm font-medium text-gray-700">Featured Image</label>
+
+      <div
+        className={`mt-1 flex justify-center px-6 pt-5 pb-6 border-2 rounded-md ${
+          featuredImage ? "border-blue-500 bg-blue-50" : "border-gray-300 border-dashed"
+        }`}
+      >
+        {featuredImage ? (
+          // Display Preview When File is Selected
+          <div className="relative text-center">
+            <img
+              src={URL.createObjectURL(featuredImage)}
+              alt="Uploaded preview"
+              className="max-h-48 rounded-md shadow-md"
+            />
+            <button
+              className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded hover:bg-red-600"
+              onClick={() => {
+                setFeaturedImage(null);
+              }}
+            >
+              Remove
+            </button>
           </div>
+        ) : (
+          // Default Upload UI
+          <div className="space-y-1 text-center">
+            <Upload className="mx-auto h-12 w-12 text-gray-400" />
+            <div className="flex text-sm text-gray-600">
+              <label
+                htmlFor="file-upload"
+                className="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500"
+              >
+                <span>Upload a file</span>
+                <input
+                  id="file-upload"
+                  name="file-upload"
+                  type="file"
+                  className="sr-only"
+                  accept="image/*"
+                  onChange={(e) => setFeaturedImage(e.target.files[0])}
+                />
+              </label>
+              <p className="pl-1">or drag and drop</p>
+            </div>
+            <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+          </div>
+        )}
+      </div>
+    </div>
           {/* Image Description */}
           <div>
             <label htmlFor="content" className="block text-sm font-medium text-gray-700">

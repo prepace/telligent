@@ -24,6 +24,26 @@ export type User = {
 	updated_at: string;
 };
 
+export type Article = {
+  id: string;
+	created_at?: string;
+	title: string;
+	content: string;
+	author_id: string;
+	image_url: string;
+	slug: string;
+	meta_title: string;
+	meta_description: string;
+	status: string;
+	publish_date: string;
+	tags: string;
+	author_name: string;
+	author_email: string;
+	image_description: string;
+	category: string;
+	description: string;
+}
+
 export type AuthContextProviderProps = {
 	children: ReactNode;
 };

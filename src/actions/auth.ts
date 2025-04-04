@@ -4,7 +4,7 @@ import { supabase } from "@/config/supabase";
 import type { UserCredentials } from "@/types";
 
 export async function login(email: string, password: string) {
-	const { error } = await supabase.auth.signInWithPassword({
+	const { data, error } = await supabase.auth.signInWithPassword({
 		email,
 		password,
 	});
@@ -13,22 +13,47 @@ export async function login(email: string, password: string) {
 		return { error: error.message };
 	}
 
-	return { success: true };
+	const response = await fetch('/api/login', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({ session: data.session })
+	});
+	
+	if (response.ok) {
+    return { success: true };
+  } else {
+    const errorData = await response.json();
+    return { error: errorData.error || 'Failed to set session cookie' };
+  };
 }
 
-export async function signup({ email, password }: UserCredentials) {
-	const { error } = await supabase.auth.signUp({
+export async function register(email: string, password: string, first_name?: string, last_name?: string) {
+	
+	const { data: { session }, error } = await supabase.auth.signUp({
 		email,
 		password,
-		options: {
-			emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`,
-		},
 	});
 
 	if (error) {
 		console.error("Signup error:", error);
 		return { error: error.message };
-	}
+	};
+
+	console.log(session)
+
+	const response = await fetch('/api/register', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({ 
+			session: session?.user,
+			first_name,
+			last_name,
+		 })
+	});
 
 	return { success: true };
 }

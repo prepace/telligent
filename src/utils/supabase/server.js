@@ -23,7 +23,14 @@ export async function createClient() {
             // user sessions.
           }
         }
-      }
+      },
+      cookieOptions: {
+        name: "supabase_session", // Customize cookie name here
+        lifetime: 60 * 60 * 24 * 7, // Cookie expiration (e.g., 7 days)
+        path: "/",
+        sameSite: "lax",
+        secure: process.env.NODE_ENV === "production",
+      },
     }
   );
 }
