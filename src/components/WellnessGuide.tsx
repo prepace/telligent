@@ -15,21 +15,21 @@ export default function WellnessGuide() {
           />
         </div>
         <h3 className="font-medium mb-1">
-          <a href="#" className="hover:text-blue-800">
+          <a href="#" className="hover:text-red-600">
             Beginner's Guide to Meditation: Start Your Practice Today
           </a>
         </h3>
       </div>
       <div>
         <h3 className="font-medium mb-1">
-          <a href="#" className="hover:text-blue-800">
+          <a href="#" className="hover:text-red-600">
             Sleep Hygiene: 7 Tips for Better Mental Health Through Better Sleep
           </a>
         </h3>
       </div>
       <div>
         <h3 className="font-medium mb-1">
-          <a href="#" className="hover:text-blue-800">
+          <a href="#" className="hover:text-red-600">
             Digital Detox: How to Reduce Screen Time for Better Mental Health
           </a>
         </h3>

@@ -17,7 +17,7 @@ export default function Resources() {
               <span className="font-medium">Crisis Text Line:</span> Text HOME to 741741
             </div>
             <div>
-              <a href="#" className="text-blue-800 hover:underline">
+              <a href="#" className="text-red-600 hover:underline">
                 Find local crisis resources →
               </a>
             </div>
@@ -30,17 +30,17 @@ export default function Resources() {
           </p>
           <div className="space-y-2 text-sm">
             <div>
-              <a href="#" className="text-blue-800 hover:underline">
+              <a href="#" className="text-red-600 hover:underline">
                 Therapist directory →
               </a>
             </div>
             <div>
-              <a href="#" className="text-blue-800 hover:underline">
+              <a href="#" className="text-red-600 hover:underline">
                 Teletherapy options →
               </a>
             </div>
             <div>
-              <a href="#" className="text-blue-800 hover:underline">
+              <a href="#" className="text-red-600 hover:underline">
                 Insurance coverage guide →
               </a>
             </div>
@@ -51,17 +51,17 @@ export default function Resources() {
           <p className="text-gray-700 mb-4">Access free resources to support your mental health journey.</p>
           <div className="space-y-2 text-sm">
             <div>
-              <a href="#" className="text-blue-800 hover:underline">
+              <a href="#" className="text-red-600 hover:underline">
                 Mental health screening tools →
               </a>
             </div>
             <div>
-              <a href="#" className="text-blue-800 hover:underline">
+              <a href="#" className="text-red-600 hover:underline">
                 Guided meditation library →
               </a>
             </div>
             <div>
-              <a href="#" className="text-blue-800 hover:underline">
+              <a href="#" className="text-red-600 hover:underline">
                 Stress management techniques →
               </a>
             </div>

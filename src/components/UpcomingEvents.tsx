@@ -4,7 +4,7 @@ export default function UpcomingEvents() {
     <div className="space-y-4">
       <div>
         <h3 className="font-medium mb-1">
-          <a href="#" className="hover:text-blue-800">
+          <a href="#" className="hover:text-red-600">
             National Mental Health Awareness Conference
           </a>
         </h3>
@@ -12,7 +12,7 @@ export default function UpcomingEvents() {
       </div>
       <div>
         <h3 className="font-medium mb-1">
-          <a href="#" className="hover:text-blue-800">
+          <a href="#" className="hover:text-red-600">
             Workplace Mental Health Summit
           </a>
         </h3>
@@ -20,7 +20,7 @@ export default function UpcomingEvents() {
       </div>
       <div>
         <h3 className="font-medium mb-1">
-          <a href="#" className="hover:text-blue-800">
+          <a href="#" className="hover:text-red-600">
             Mental Health First Aid Training
           </a>
         </h3>

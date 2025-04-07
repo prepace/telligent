@@ -1,14 +1,15 @@
 import Image from "next/image"
-import Sidebar from "@/components/Sidebar"
-import { Input } from "@/components/ui/input"
+import CommentSection from "@/components/Comments/comments"
+import image01 from "../../../../public/image01.jpeg"
+
 import { Button } from "@/components/ui/button"
-import { Search, Menu, User, Bell, Share2, Bookmark } from "lucide-react"
+import { Share2, Bookmark } from "lucide-react"
 
 export default function ArticlePage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <main className="mx-auto px-6 py-8 grid grid-cols-1 xl:grid-cols-12">
         {/* Article Content */}
         <div className="lg:col-span-8">
           <div className="mb-6">
@@ -39,7 +40,7 @@ export default function ArticlePage() {
 
           <div className="relative aspect-video mb-6">
             <Image
-              src="/placeholder.svg?height=600&width=1200"
+              src={image01}
               alt="Mental health professionals in a discussion"
               fill
               className="object-cover"
@@ -160,7 +161,7 @@ export default function ArticlePage() {
         </div>
 
         {/* Sidebar */}
-        <Sidebar />
+        <CommentSection />
       </main>
     </div>
   )

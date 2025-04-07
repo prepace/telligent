@@ -24,7 +24,7 @@ export default function LatestResearchFormat({ data }: { data: Data } ) {
       </div>
       <div>
         <h3 className="font-serif text-xl font-bold mb-2">
-          <a href="#" className="hover:text-blue-800">
+          <a href="#" className="hover:text-red-600">
             {data.title}
           </a>
         </h3>

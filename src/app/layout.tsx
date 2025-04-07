@@ -39,8 +39,8 @@ export default function RootLayout({
         <ModalProvider >
           <Modal />
           <Header />
-          {(pathname.startsWith("/article") || pathname === "/") && <Masthead />}
-          {(pathname.startsWith("/article") || pathname === "/") && <Navigation />}
+          {pathname === "/" && <Masthead />}
+          {pathname === "/" && <Navigation />}
           {children}
           {!pathname.startsWith("/admin") && <Footer />}
         </ModalProvider >

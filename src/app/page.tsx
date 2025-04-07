@@ -26,7 +26,7 @@ export default function HealthHomepage() {
           <div className="lg:col-span-7">
             <div className="text-sm text-gray-600 uppercase font-bold mb-2">Featured</div>
             <h1 className="font-serif text-3xl md:text-4xl font-bold leading-tight mb-4">
-              <a href="#" className="hover:text-blue-800">
+              <a href="#" className="hover:text-red-600">
                 Mental Health Crisis Demands New Approach, Experts Say
               </a>
             </h1>
@@ -51,7 +51,7 @@ export default function HealthHomepage() {
                 young adults.
               </p>
               <p>
-                <a href="#" className="text-blue-800 font-medium hover:underline">
+                <a href="#" className="text-red-600 font-medium hover:underline">
                   Continue reading →
                 </a>
               </p>
@@ -90,7 +90,7 @@ export default function HealthHomepage() {
                 {/* Opinion 1 */}
                 <div className="border-b border-gray-200 pb-6">
                   <h3 className="font-serif text-xl font-bold mb-2">
-                    <a href="#" className="hover:text-blue-800">
+                    <a href="#" className="hover:text-red-600">
                       Opinion: Why We Need to Rethink How We Talk About Mental Illness
                     </a>
                   </h3>
@@ -105,7 +105,7 @@ export default function HealthHomepage() {
                 {/* Opinion 2 */}
                 <div className="border-b border-gray-200 pb-6">
                   <h3 className="font-serif text-xl font-bold mb-2">
-                    <a href="#" className="hover:text-blue-800">
+                    <a href="#" className="hover:text-red-600">
                       Opinion: The Case for Mental Health Days at Work and School
                     </a>
                   </h3>

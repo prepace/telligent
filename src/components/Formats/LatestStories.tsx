@@ -16,7 +16,7 @@ export default function LatestStoriesFormat({ data }: { data: Data }) {
     return (
       <div className="border-b border-gray-200 pb-6">
         <h3 className="font-serif text-xl font-bold mb-2">
-          <a href="#" className="hover:text-blue-800">
+          <a href="#" className="hover:text-red-600">
             {data.title}
           </a>
         </h3>
@@ -41,7 +41,7 @@ export default function LatestStoriesFormat({ data }: { data: Data }) {
         />
       </div>
       <h3 className="font-serif text-xl font-bold mb-2">
-        <a href="#" className="hover:text-blue-800">
+        <a href="#" className="hover:text-red-600">
           {data.title}
         </a>
       </h3>

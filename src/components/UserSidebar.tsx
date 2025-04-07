@@ -80,7 +80,7 @@ export default function UserSidebar() {
         <div className={`p-4 border-b ${isMobile && !isExpanded ? "flex justify-center" : ""}`}>
           {!isMobile || isExpanded ? (
             <div className="flex items-center space-x-3">
-              <div className="relative w-10 h-10 rounded-full overflow-hidden bg-purple-100">
+              <div className="relative w-10 h-10 rounded-full overflow-hidden bg-red-100">
                 <Image
                   src="/placeholder.svg?height=40&width=40"
                   alt="User avatar"
@@ -96,7 +96,7 @@ export default function UserSidebar() {
             </div>
           ) : (
             <div className="relative group">
-              <div className="w-8 h-8 rounded-full overflow-hidden bg-purple-100">
+              <div className="w-8 h-8 rounded-full overflow-hidden bg-red-100">
                 <Image
                   src="/placeholder.svg?height=32&width=32"
                   alt="User avatar"
@@ -123,7 +123,7 @@ export default function UserSidebar() {
                   <div>
                     <button
                       onClick={() => toggleCategory(item.name)}
-                      className={`w-full flex items-center ${isMobile && !isExpanded ? "justify-center" : "justify-between"} px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700 transition-colors`}
+                      className={`w-full flex items-center ${isMobile && !isExpanded ? "justify-center" : "justify-between"} px-4 py-2 text-gray-700 hover:bg-red-50 hover:text-red-700 transition-colors`}
                     >
                       <div className={`flex items-center ${isMobile && !isExpanded ? "" : "space-x-3"}`}>
                         <span className="relative group">
@@ -155,7 +155,7 @@ export default function UserSidebar() {
                           <li key={subItem.name}>
                             <Link
                               href={subItem.href}
-                              className="block py-1 text-sm text-gray-600 hover:text-purple-700"
+                              className="block py-1 text-sm text-gray-600 hover:text-red-700"
                             >
                               {subItem.name}
                             </Link>
@@ -169,8 +169,8 @@ export default function UserSidebar() {
                     href={item.href}
                     className={`flex items-center ${isMobile && !isExpanded ? "justify-center" : ""} px-4 py-2 ${
                       pathname === item.href
-                        ? "bg-purple-100 text-purple-700"
-                        : "text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                        ? "bg-red-100 text-red-700"
+                        : "text-gray-700 hover:bg-red-50 hover:text-red-700"
                     } transition-colors`}
                   >
                     <span className="relative group">
@@ -209,12 +209,12 @@ export default function UserSidebar() {
 
         {/* Mental Health Resources Banner - Only visible in expanded view */}
         {(!isMobile || isExpanded) && (
-          <div className="absolute bottom-4 left-4 right-4 bg-purple-100 rounded-lg p-3">
-            <h4 className="text-sm font-medium text-purple-800">Need Support?</h4>
-            <p className="text-xs text-purple-700 mt-1">
+          <div className="absolute bottom-4 left-4 right-4 bg-red-100 rounded-lg p-3">
+            <h4 className="text-sm font-medium text-red-800">Need Support?</h4>
+            <p className="text-xs text-red-700 mt-1">
               Access our mental health resources or contact our support team.
             </p>
-            <Link href="/resources" className="text-xs text-purple-600 font-medium mt-2 inline-block hover:underline">
+            <Link href="/resources" className="text-xs text-red-600 font-medium mt-2 inline-block hover:underline">
               View Resources →
             </Link>
           </div>
