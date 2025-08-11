@@ -2,56 +2,46 @@
 
 import type React from "react";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
 } from "@/components/ui/select";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
 import { createArticle, updateArticle } from "@/lib/articles";
+import type { Article as ArticlePayload } from "@/lib/articles";
 import { useRouter } from "next/navigation";
-import { RichTextEditor } from "@/components/Admin/rich-text-editor";
-import { ImageUpload } from "@/components/Admin/image-upload";
+import { RichTextEditor } from "@/components/admin/rich-text-editor";
+import { ImageUpload } from "@/components/admin/image-upload";
 
 // Mock categories
 const categories = [
-  { id: "1", name: "Technology" },
-  { id: "2", name: "Politics" },
-  { id: "3", name: "Business" },
-  { id: "4", name: "Health" },
-  { id: "5", name: "Science" },
-  { id: "6", name: "Entertainment" },
-  { id: "7", name: "Sports" },
-  { id: "8", name: "Environment" },
+	{ id: "1", name: "Technology" },
+	{ id: "2", name: "Politics" },
+	{ id: "3", name: "Business" },
+	{ id: "4", name: "Health" },
+	{ id: "5", name: "Science" },
+	{ id: "6", name: "Entertainment" },
+	{ id: "7", name: "Sports" },
+	{ id: "8", name: "Environment" },
 ];
 
-// eslint-disable-next-line
-interface Article {
-  id?: string;
-  title?: string;
-  slug?: string;
-  excerpt?: string;
-  content?: string;
-  category?: string;
-  featuredImage?: string;
-  tags?: string;
-  status?: string;
-  isFeatured?: boolean;
-  metaTitle?: string;
-  metaDescription?: string;
-}
-
-export function ArticleForm({ article }: { article?: Article }) {
+export function ArticleForm({
+	article,
+}: {
+	article?: Partial<ArticlePayload>;
+}) {
 	const router = useRouter();
+	const uid = useId();
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [formData, setFormData] = useState({
 		title: article?.title || "",
@@ -95,16 +85,28 @@ export function ArticleForm({ article }: { article?: Article }) {
 		setIsSubmitting(true);
 
 		try {
-			if (article) {
-				await updateArticle(article.id, {
-					...formData,
-					status: formData.isPublished ? "Published" : "Draft",
-				});
+			const payload: ArticlePayload = {
+				// required by lib/articles Article type
+				title: formData.title,
+				slug: formData.slug,
+				excerpt: formData.excerpt,
+				content: formData.content,
+				category: formData.category,
+				featuredImage: formData.featuredImage,
+				tags: formData.tags,
+				status: formData.isPublished ? "Published" : "Draft",
+				isFeatured: formData.isFeatured,
+				metaTitle: formData.metaTitle,
+				metaDescription: formData.metaDescription,
+				author: article?.author ?? "Admin User",
+				date: article?.date ?? new Date().toISOString().slice(0, 10),
+				views: article?.views ?? 0,
+			};
+
+			if (article?.id) {
+				await updateArticle(article.id, payload);
 			} else {
-				await createArticle({
-					...formData,
-					status: formData.isPublished ? "Published" : "Draft",
-				});
+				await createArticle(payload);
 			}
 
 			router.push("/admin/articles");
@@ -137,9 +139,9 @@ export function ArticleForm({ article }: { article?: Article }) {
 				<TabsContent value="content" className="space-y-4">
 					<div className="grid gap-4">
 						<div className="grid gap-2">
-							<Label htmlFor="title">Title</Label>
+							<Label htmlFor={`${uid}-title`}>Title</Label>
 							<Input
-								id="title"
+								id={`${uid}-title`}
 								name="title"
 								value={formData.title}
 								onChange={handleChange}
@@ -150,7 +152,7 @@ export function ArticleForm({ article }: { article?: Article }) {
 
 						<div className="grid gap-2">
 							<div className="flex items-center justify-between">
-								<Label htmlFor="slug">Slug</Label>
+								<Label htmlFor={`${uid}-slug`}>Slug</Label>
 								<Button
 									type="button"
 									variant="outline"
@@ -163,7 +165,7 @@ export function ArticleForm({ article }: { article?: Article }) {
 								</Button>
 							</div>
 							<Input
-								id="slug"
+								id={`${uid}-slug`}
 								name="slug"
 								value={formData.slug}
 								onChange={handleChange}
@@ -173,9 +175,9 @@ export function ArticleForm({ article }: { article?: Article }) {
 						</div>
 
 						<div className="grid gap-2">
-							<Label htmlFor="excerpt">Excerpt</Label>
+							<Label htmlFor={`${uid}-excerpt`}>Excerpt</Label>
 							<Textarea
-								id="excerpt"
+								id={`${uid}-excerpt`}
 								name="excerpt"
 								value={formData.excerpt}
 								onChange={handleChange}
@@ -215,9 +217,9 @@ export function ArticleForm({ article }: { article?: Article }) {
 						<CardContent className="pt-6">
 							<div className="grid gap-6">
 								<div className="grid gap-2">
-									<Label htmlFor="metaTitle">Meta Title</Label>
+									<Label htmlFor={`${uid}-metaTitle`}>Meta Title</Label>
 									<Input
-										id="metaTitle"
+										id={`${uid}-metaTitle`}
 										name="metaTitle"
 										value={formData.metaTitle}
 										onChange={handleChange}
@@ -226,9 +228,11 @@ export function ArticleForm({ article }: { article?: Article }) {
 								</div>
 
 								<div className="grid gap-2">
-									<Label htmlFor="metaDescription">Meta Description</Label>
+									<Label htmlFor={`${uid}-metaDescription`}>
+										Meta Description
+									</Label>
 									<Textarea
-										id="metaDescription"
+										id={`${uid}-metaDescription`}
 										name="metaDescription"
 										value={formData.metaDescription}
 										onChange={handleChange}
@@ -246,14 +250,14 @@ export function ArticleForm({ article }: { article?: Article }) {
 						<CardContent className="pt-6">
 							<div className="grid gap-6">
 								<div className="grid gap-2">
-									<Label htmlFor="category">Category</Label>
+									<Label htmlFor={`${uid}-category`}>Category</Label>
 									<Select
 										value={formData.category}
 										onValueChange={(value) =>
 											handleSelectChange("category", value)
 										}
 									>
-										<SelectTrigger>
+										<SelectTrigger id={`${uid}-category`}>
 											<SelectValue placeholder="Select a category" />
 										</SelectTrigger>
 										<SelectContent>
@@ -267,9 +271,9 @@ export function ArticleForm({ article }: { article?: Article }) {
 								</div>
 
 								<div className="grid gap-2">
-									<Label htmlFor="tags">Tags</Label>
+									<Label htmlFor={`${uid}-tags`}>Tags</Label>
 									<Input
-										id="tags"
+										id={`${uid}-tags`}
 										name="tags"
 										value={formData.tags}
 										onChange={handleChange}
@@ -279,24 +283,26 @@ export function ArticleForm({ article }: { article?: Article }) {
 
 								<div className="flex items-center space-x-2">
 									<Switch
-										id="isPublished"
+										id={`${uid}-isPublished`}
 										checked={formData.isPublished}
 										onCheckedChange={(checked) =>
 											handleSwitchChange("isPublished", checked)
 										}
 									/>
-									<Label htmlFor="isPublished">Publish article</Label>
+									<Label htmlFor={`${uid}-isPublished`}>Publish article</Label>
 								</div>
 
 								<div className="flex items-center space-x-2">
 									<Switch
-										id="isFeatured"
+										id={`${uid}-isFeatured`}
 										checked={formData.isFeatured}
 										onCheckedChange={(checked) =>
 											handleSwitchChange("isFeatured", checked)
 										}
 									/>
-									<Label htmlFor="isFeatured">Feature on homepage</Label>
+									<Label htmlFor={`${uid}-isFeatured`}>
+										Feature on homepage
+									</Label>
 								</div>
 							</div>
 						</CardContent>

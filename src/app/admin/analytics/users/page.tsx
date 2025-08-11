@@ -196,6 +196,7 @@ export default function UserAnalyticsPage() {
 			<div className="w-full">
 				<div className="grid w-full grid-cols-5 bg-gray-100 rounded-lg p-1">
 					<button
+						type="button"
 						onClick={() => setActiveTab("overview")}
 						className={`py-2 px-4 rounded-md transition-colors ${
 							activeTab === "overview" ? "bg-white shadow" : "hover:bg-gray-200"
@@ -204,6 +205,7 @@ export default function UserAnalyticsPage() {
 						Overview
 					</button>
 					<button
+            type="button"
 						onClick={() => setActiveTab("engagement")}
 						className={`py-2 px-4 rounded-md transition-colors ${
 							activeTab === "engagement"
@@ -214,6 +216,7 @@ export default function UserAnalyticsPage() {
 						Engagement
 					</button>
 					<button
+						type="button"
 						onClick={() => setActiveTab("geography")}
 						className={`py-2 px-4 rounded-md transition-colors ${
 							activeTab === "geography"
@@ -224,6 +227,7 @@ export default function UserAnalyticsPage() {
 						Geography
 					</button>
 					<button
+						type="button"
 						onClick={() => setActiveTab("content")}
 						className={`py-2 px-4 rounded-md transition-colors ${
 							activeTab === "content" ? "bg-white shadow" : "hover:bg-gray-200"
@@ -232,6 +236,7 @@ export default function UserAnalyticsPage() {
 						Content
 					</button>
 					<button
+						type="button"
 						onClick={() => setActiveTab("retention")}
 						className={`py-2 px-4 rounded-md transition-colors ${
 							activeTab === "retention"
@@ -250,6 +255,7 @@ export default function UserAnalyticsPage() {
 					{/* Time Period Selector */}
 					<div className="flex justify-end space-x-2 mt-4">
 						<button
+							type="button"
 							onClick={() => setTimePeriod("daily")}
 							className={`px-3 py-1 rounded ${
 								timePeriod === "daily"
@@ -260,6 +266,7 @@ export default function UserAnalyticsPage() {
 							Daily
 						</button>
 						<button
+							type="button"
 							onClick={() => setTimePeriod("weekly")}
 							className={`px-3 py-1 rounded ${
 								timePeriod === "weekly"
@@ -270,6 +277,7 @@ export default function UserAnalyticsPage() {
 							Weekly
 						</button>
 						<button
+							type="button"
 							onClick={() => setTimePeriod("monthly")}
 							className={`px-3 py-1 rounded ${
 								timePeriod === "monthly"
@@ -719,7 +727,7 @@ export default function UserAnalyticsPage() {
 											>
 												{geoDistributionData.map((entry, index) => (
 													<Cell
-														key={`cell-${index}`}
+														key={entry.country}
 														fill={COLORS[index % COLORS.length]}
 													/>
 												))}
@@ -1200,9 +1208,15 @@ export default function UserAnalyticsPage() {
 												fill="#8884d8"
 												dataKey="value"
 											>
-												{[...Array(5)].map((_, index) => (
+												{[
+													{ name: "Long-form Articles", value: 35 },
+													{ name: "Short News", value: 25 },
+													{ name: "Video Content", value: 20 },
+													{ name: "Photo Galleries", value: 12 },
+													{ name: "Interactive Content", value: 8 },
+												].map((entry, index) => (
 													<Cell
-														key={`cell-${index}`}
+														key={entry.name}
 														fill={COLORS[index % COLORS.length]}
 													/>
 												))}

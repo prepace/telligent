@@ -172,7 +172,7 @@ export default function ResourcesPage() {
                   placeholder="Enter your zip code"
                   className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
                 />
-                <button className="bg-red-600 text-white px-6 py-2 rounded-md hover:bg-red-700 transition-colors">
+                <button type="button" className="bg-red-600 text-white px-6 py-2 rounded-md hover:bg-red-700 transition-colors">
                   Search
                 </button>
               </div>
