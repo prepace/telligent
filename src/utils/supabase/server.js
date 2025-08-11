@@ -1,7 +1,12 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
+import { createMockSupabaseClient } from "@/utils/supabase/mock";
 
 export async function createClient() {
+  // Wireframe mode: return mock client to avoid DB calls on server
+  if (process.env.NEXT_PUBLIC_WIREFRAME === "true") {
+    return createMockSupabaseClient();
+  }
   const cookieStore = await cookies();
 
   return createServerClient(

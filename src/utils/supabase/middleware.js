@@ -6,6 +6,10 @@ export async function updateSession(request) {
     request
   });
 
+  if (process.env.NEXT_PUBLIC_WIREFRAME === "true") {
+    return supabaseResponse;
+  }
+
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
@@ -15,7 +19,7 @@ export async function updateSession(request) {
           return request.cookies.getAll();
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) =>
+          cookiesToSet.forEach(({ name, value }) =>
             request.cookies.set(name, value)
           );
           supabaseResponse = NextResponse.next({
@@ -35,9 +39,7 @@ export async function updateSession(request) {
 
   // IMPORTANT: DO NOT REMOVE auth.getUser()
 
-  const {
-    data: { user }
-  } = await supabase.auth.getUser();
+  await supabase.auth.getUser();
 
   // if (
   //   !user &&

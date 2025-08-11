@@ -1,7 +1,11 @@
 import { updateSession } from "@/utils/supabase/middleware";
+import { NextResponse } from "next/server";
 
 export async function middleware(request) {
-  // update user's auth session
+  if (process.env.NEXT_PUBLIC_WIREFRAME === "true") {
+    // No-op: just continue without touching auth/session
+    return NextResponse.next({ request });
+  }
   return await updateSession(request);
 }
 
