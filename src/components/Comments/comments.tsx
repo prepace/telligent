@@ -2,14 +2,14 @@
 
 import { useState, type FormEvent } from "react"
 
-import Image from "next/image"
+import Image, { type StaticImageData } from "next/image"
 import image03 from "../../../public/image03.jpeg"
 
 type Comment = {
 	id: string;
 	author: string;
 	// eslint-disable-next-line
-	authorImage: any;
+  authorImage: StaticImageData | string;
 	date: string;
 	content: string;
 	likes: number;

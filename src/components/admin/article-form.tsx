@@ -35,7 +35,22 @@ const categories = [
 ];
 
 // eslint-disable-next-line
-export function ArticleForm({ article }: { article?: any }) {
+interface Article {
+  id?: string;
+  title?: string;
+  slug?: string;
+  excerpt?: string;
+  content?: string;
+  category?: string;
+  featuredImage?: string;
+  tags?: string;
+  status?: string;
+  isFeatured?: boolean;
+  metaTitle?: string;
+  metaDescription?: string;
+}
+
+export function ArticleForm({ article }: { article?: Article }) {
 	const router = useRouter();
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [formData, setFormData] = useState({

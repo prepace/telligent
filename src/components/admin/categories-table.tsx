@@ -99,7 +99,14 @@ export function CategoriesTable() {
   const [searchTerm, setSearchTerm] = useState("")
   const [currentPage, setCurrentPage] = useState(1)
   // eslint-disable-next-line
-	const [editCategory, setEditCategory] = useState<any>(null);
+	  interface Category {
+		id: string;
+		name: string;
+		slug: string;
+		articleCount: number;
+		createdAt: string;
+	  }
+	  const [editCategory, setEditCategory] = useState<Category | null>(null);
   const [categoryToDelete, setCategoryToDelete] = useState<string | null>(null)
 
   const itemsPerPage = 5

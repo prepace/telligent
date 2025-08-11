@@ -39,7 +39,7 @@ export async function GET() {
 	// TODO: cast to generic result shape due to mixed mock/real client types
 	const query = supabase.from("articles").select("*").eq("author_id", user.id);
 	const { data: articles, error: articleError } =
-		await (query as unknown as Promise<{ data: any; error: any }>);
+		await (query as unknown as Promise<{ data: Record<string, unknown>[]; error: Error | null }>);
 
 	if (articleError) {
 		// If there’s an error fetching articles, return an error response
