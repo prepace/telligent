@@ -34,8 +34,7 @@ export async function POST(req: Request) {
 					first_name,
 					last_name,
 					email: session.email,
-				})
-				.single(); // .single() ensures that only one row is returned
+				}); // .upsert() returns a promise with the result
 
 			if (error) {
 				console.error(error);
