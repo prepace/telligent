@@ -3,11 +3,11 @@
 import Sidebar from "../Sidebar";
 import Image from "next/image";
 
-import { useState } from "react";
+// import { useState } from "react";
 import { formatDateArticle } from "@/utils/formatting";
-import { Input } from "@/components/ui/input";
+// import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, Menu, User, Bell, Share2, Bookmark } from "lucide-react";
+import { Share2, Bookmark } from "lucide-react"; // Search, Menu, User, Bell,
 
 interface ChildProps {
   title: string;
@@ -24,7 +24,7 @@ interface ChildProps {
 export default function ViewMode({ 
     title, 
     authorName, 
-    authorEmail, 
+    // authorEmail, 
     category, 
     description, 
     featuredImage, 

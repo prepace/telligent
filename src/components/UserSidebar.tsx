@@ -6,7 +6,7 @@ import Link from "next/link"
 import Image from "next/image"
 
 import { useState, useEffect } from "react"
-import { Home, FileText, PlusCircle, Bookmark, User, Settings, HelpCircle, LogOut, Brain, Menu } from "lucide-react"
+import { Home, FileText, PlusCircle, Bookmark, User, Settings, HelpCircle, LogOut, Brain } from "lucide-react" // Menu
 import { usePathname } from "next/navigation"
 import { useAuth } from "@/context/AuthProvider"
 
@@ -20,7 +20,7 @@ type SidebarItem = {
 export default function UserSidebar() {
   const { user, signout } = useAuth()
   const [isMobile, setIsMobile] = useState(false)
-  const [isExpanded, setIsExpanded] = useState(false)
+  const [isExpanded] = useState(false); // setIsExpanded
   const [activeCategory, setActiveCategory] = useState<string | null>(null)
   const pathname = usePathname() // Add this line
 
@@ -122,6 +122,7 @@ export default function UserSidebar() {
                 {item.subItems ? (
                   <div>
                     <button
+                      type="button"
                       onClick={() => toggleCategory(item.name)}
                       className={`w-full flex items-center ${isMobile && !isExpanded ? "justify-center" : "justify-between"} px-4 py-2 text-gray-700 hover:bg-red-50 hover:text-red-700 transition-colors`}
                     >
@@ -143,6 +144,7 @@ export default function UserSidebar() {
                           viewBox="0 0 24 24"
                           stroke="currentColor"
                         >
+                          <title>Toggle category</title>
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                         </svg>
                       )}
@@ -190,6 +192,7 @@ export default function UserSidebar() {
             {/* Logout Item */}
             <li className="mt-6">
               <button
+                type="button"
                 onClick={signout}
                 className={`flex items-center ${isMobile && !isExpanded ? "justify-center" : ""} w-full px-4 py-2 text-red-600 hover:bg-red-50 transition-colors`}
               >

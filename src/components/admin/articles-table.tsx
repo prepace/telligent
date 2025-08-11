@@ -143,165 +143,188 @@ export function ArticlesTable() {
   }
 
   return (
-    <div className="space-y-4">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex w-full max-w-sm items-center space-x-2">
-          <div className="relative flex-1">
-            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder="Search articles..."
-              className="pl-8"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
-        </div>
-        <div className="flex flex-col gap-4 sm:flex-row">
-          <Select value={statusFilter} onValueChange={setStatusFilter}>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Filter by status" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Statuses</SelectItem>
-              <SelectItem value="Published">Published</SelectItem>
-              <SelectItem value="Draft">Draft</SelectItem>
-            </SelectContent>
-          </Select>
+			<div className="space-y-4">
+				<div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+					<div className="flex w-full max-w-sm items-center space-x-2">
+						<div className="relative flex-1">
+							<Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+							<Input
+								type="search"
+								placeholder="Search articles..."
+								className="pl-8"
+								value={searchTerm}
+								onChange={(e) => setSearchTerm(e.target.value)}
+							/>
+						</div>
+					</div>
+					<div className="flex flex-col gap-4 sm:flex-row">
+						<Select value={statusFilter} onValueChange={setStatusFilter}>
+							<SelectTrigger className="w-[180px]">
+								<SelectValue placeholder="Filter by status" />
+							</SelectTrigger>
+							<SelectContent>
+								<SelectItem value="all">All Statuses</SelectItem>
+								<SelectItem value="Published">Published</SelectItem>
+								<SelectItem value="Draft">Draft</SelectItem>
+							</SelectContent>
+						</Select>
 
-          <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Filter by category" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Categories</SelectItem>
-              {categories.map((category) => (
-                <SelectItem key={category} value={category}>
-                  {category}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
+						<Select value={categoryFilter} onValueChange={setCategoryFilter}>
+							<SelectTrigger className="w-[180px]">
+								<SelectValue placeholder="Filter by category" />
+							</SelectTrigger>
+							<SelectContent>
+								<SelectItem value="all">All Categories</SelectItem>
+								{categories.map((category) => (
+									<SelectItem key={category} value={category}>
+										{category}
+									</SelectItem>
+								))}
+							</SelectContent>
+						</Select>
+					</div>
+				</div>
 
-      <div className="rounded-md border">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Title</TableHead>
-              <TableHead>Category</TableHead>
-              <TableHead>Author</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Date</TableHead>
-              <TableHead className="text-right">Views</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {paginatedArticles.length > 0 ? (
-              paginatedArticles.map((article) => (
-                <TableRow key={article.id}>
-                  <TableCell className="font-medium">{article.title}</TableCell>
-                  <TableCell>{article.category}</TableCell>
-                  <TableCell>{article.author}</TableCell>
-                  <TableCell>
-                    <Badge variant={article.status === "Published" ? "default" : "secondary"}>{article.status}</Badge>
-                  </TableCell>
-                  <TableCell>{article.date}</TableCell>
-                  <TableCell className="text-right">{article.views.toLocaleString()}</TableCell>
-                  <TableCell className="text-right">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                          <span className="sr-only">Open menu</span>
-                          <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem asChild>
-                          <Link href={`/article/${article.id}`} target="_blank">
-                            <Eye className="mr-2 h-4 w-4" />
-                            View
-                          </Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem asChild>
-                          <Link href={`/admin/articles/${article.id}`}>
-                            <Pencil className="mr-2 h-4 w-4" />
-                            Edit
-                          </Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <AlertDialog>
-                          <AlertDialogTrigger asChild>
-                            <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-                              <Trash2 className="mr-2 h-4 w-4" />
-                              Delete
-                            </DropdownMenuItem>
-                          </AlertDialogTrigger>
-                          <AlertDialogContent>
-                            <AlertDialogHeader>
-                              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                              <AlertDialogDescription>
-                                This action cannot be undone. This will permanently delete the article "{article.title}"
-                                and remove it from our servers.
-                              </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                              <AlertDialogCancel>Cancel</AlertDialogCancel>
-                              <AlertDialogAction
-                                onClick={() => handleDeleteArticle()}
-                                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-                              >
-                                Delete
-                              </AlertDialogAction>
-                            </AlertDialogFooter>
-                          </AlertDialogContent>
-                        </AlertDialog>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </TableCell>
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={7} className="h-24 text-center">
-                  No articles found.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </div>
+				<div className="rounded-md border">
+					<Table>
+						<TableHeader>
+							<TableRow>
+								<TableHead>Title</TableHead>
+								<TableHead>Category</TableHead>
+								<TableHead>Author</TableHead>
+								<TableHead>Status</TableHead>
+								<TableHead>Date</TableHead>
+								<TableHead className="text-right">Views</TableHead>
+								<TableHead className="text-right">Actions</TableHead>
+							</TableRow>
+						</TableHeader>
+						<TableBody>
+							{paginatedArticles.length > 0 ? (
+								paginatedArticles.map((article) => (
+									<TableRow key={article.id}>
+										<TableCell className="font-medium">
+											{article.title}
+										</TableCell>
+										<TableCell>{article.category}</TableCell>
+										<TableCell>{article.author}</TableCell>
+										<TableCell>
+											<Badge
+												variant={
+													article.status === "Published"
+														? "default"
+														: "secondary"
+												}
+											>
+												{article.status}
+											</Badge>
+										</TableCell>
+										<TableCell>{article.date}</TableCell>
+										<TableCell className="text-right">
+											{article.views.toLocaleString()}
+										</TableCell>
+										<TableCell className="text-right">
+											<DropdownMenu>
+												<DropdownMenuTrigger asChild>
+													<Button variant="ghost" className="h-8 w-8 p-0">
+														<span className="sr-only">Open menu</span>
+														<MoreHorizontal className="h-4 w-4" />
+													</Button>
+												</DropdownMenuTrigger>
+												<DropdownMenuContent align="end">
+													<DropdownMenuLabel>Actions</DropdownMenuLabel>
+													<DropdownMenuItem asChild>
+														<Link
+															href={`/article/${article.id}`}
+															target="_blank"
+														>
+															<Eye className="mr-2 h-4 w-4" />
+															View
+														</Link>
+													</DropdownMenuItem>
+													<DropdownMenuItem asChild>
+														<Link href={`/admin/articles/${article.id}`}>
+															<Pencil className="mr-2 h-4 w-4" />
+															Edit
+														</Link>
+													</DropdownMenuItem>
+													<DropdownMenuSeparator />
+													<AlertDialog>
+														<AlertDialogTrigger asChild>
+															<DropdownMenuItem
+																onSelect={(e) => e.preventDefault()}
+															>
+																<Trash2 className="mr-2 h-4 w-4" />
+																Delete
+															</DropdownMenuItem>
+														</AlertDialogTrigger>
+														<AlertDialogContent>
+															<AlertDialogHeader>
+																<AlertDialogTitle>
+																	Are you absolutely sure?
+																</AlertDialogTitle>
+																<AlertDialogDescription>
+																	This action cannot be undone. This will
+																	permanently delete the article &quot;
+																	{article.title}&quot; and remove it from our
+																	servers.
+																</AlertDialogDescription>
+															</AlertDialogHeader>
+															<AlertDialogFooter>
+																<AlertDialogCancel>Cancel</AlertDialogCancel>
+																<AlertDialogAction
+																	onClick={() => handleDeleteArticle()}
+																	className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+																>
+																	Delete
+																</AlertDialogAction>
+															</AlertDialogFooter>
+														</AlertDialogContent>
+													</AlertDialog>
+												</DropdownMenuContent>
+											</DropdownMenu>
+										</TableCell>
+									</TableRow>
+								))
+							) : (
+								<TableRow>
+									<TableCell colSpan={7} className="h-24 text-center">
+										No articles found.
+									</TableCell>
+								</TableRow>
+							)}
+						</TableBody>
+					</Table>
+				</div>
 
-      {/* Pagination */}
-      {totalPages > 1 && (
-        <div className="flex items-center justify-end space-x-2 py-4">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-            disabled={currentPage === 1}
-          >
-            <ChevronLeft className="h-4 w-4" />
-            <span className="sr-only">Previous Page</span>
-          </Button>
-          <div className="text-sm text-muted-foreground">
-            Page {currentPage} of {totalPages}
-          </div>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-            disabled={currentPage === totalPages}
-          >
-            <ChevronRight className="h-4 w-4" />
-            <span className="sr-only">Next Page</span>
-          </Button>
-        </div>
-      )}
-    </div>
-  )
+				{/* Pagination */}
+				{totalPages > 1 && (
+					<div className="flex items-center justify-end space-x-2 py-4">
+						<Button
+							variant="outline"
+							size="sm"
+							onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+							disabled={currentPage === 1}
+						>
+							<ChevronLeft className="h-4 w-4" />
+							<span className="sr-only">Previous Page</span>
+						</Button>
+						<div className="text-sm text-muted-foreground">
+							Page {currentPage} of {totalPages}
+						</div>
+						<Button
+							variant="outline"
+							size="sm"
+							onClick={() =>
+								setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+							}
+							disabled={currentPage === totalPages}
+						>
+							<ChevronRight className="h-4 w-4" />
+							<span className="sr-only">Next Page</span>
+						</Button>
+					</div>
+				)}
+			</div>
+		);
 }
 

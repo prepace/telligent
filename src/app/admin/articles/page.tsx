@@ -144,7 +144,7 @@ export default function ArticlesPage() {
 
   // Mock data for articles (in a real app, this would be fetched from an API)
   const [articles, setArticles] = useState(MOCK_ARTICLES)
-  const [totalArticles, setTotalArticles] = useState(1000000) // Mock total count
+  const [totalArticles] = useState(1000000); // Mock total count TODO: setTotalArticles
   const [loading, setLoading] = useState(false)
 
   // Tag input and selected tags

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import EditingMode from "@/components/CreateArticle/editing-mode";
 import ViewMode from "@/components/CreateArticle/view-mode";
@@ -57,12 +57,12 @@ export default function ArticleSubmissionPage() {
       formData.append("featured_image", featuredImage); // File object
     }
 
-    const token = localStorage.getItem('sb:token');
+    // const token = localStorage.getItem('sb:token');
 
-    const response = fetch('/api/articles/', {
-      method: 'POST',
-      body: formData,
-    });
+    // const response = fetch('/api/articles/', {
+    //   method: 'POST',
+    //   body: formData,
+    // });
   }
 
   return (

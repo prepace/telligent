@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils"; // Optional utility for class merging
-
+// eslint-disable-next-line
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
 
 export function Input({ className, ...props }: InputProps) {

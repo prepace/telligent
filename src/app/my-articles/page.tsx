@@ -219,7 +219,7 @@ export default function ArticlesPage() {
 			<div className="mx-auto max-w-7xl">
 				<h1 className="mb-2 text-3xl font-bold text-gray-900">Your Articles</h1>
 				<p className="mb-6 text-gray-600">
-					Browse the articles you've published on our platform.
+					Browse the articles you&apos;ve published on our platform.
 				</p>
 
 				<div className="mb-6 flex flex-col gap-4 sm:flex-row">

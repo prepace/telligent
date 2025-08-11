@@ -3,7 +3,8 @@
     Ex.: Locations have a LocationType
 */
 
-const locationTypes = [
+// eslint-disable-next-line
+ const locationTypes = [
 	"geology",
 	"continent",
 	"region",
@@ -18,7 +19,18 @@ const locationTypes = [
 	"parcel",
 ] as const;
 
-const processSteps = ["ocr", "nlp", "gpt", "locations", "entities", "events", "tags", "transcription", "words"];
+// eslint-disable-next-line
+const processSteps = [
+	"ocr",
+	"nlp",
+	"gpt",
+	"locations",
+	"entities",
+	"events",
+	"tags",
+	"transcription",
+	"words",
+];
 
 export type LocationType = (typeof locationTypes)[number];
 export type ProcessStep = (typeof processSteps)[number];

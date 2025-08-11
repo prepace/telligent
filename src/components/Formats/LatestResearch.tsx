@@ -1,8 +1,9 @@
+import Link from "next/link"
 import Image from "next/image"
 
 interface Data {
   id: string
-  image: any
+  image: string | null
   image_alt: string
   title: string
   description: string
@@ -24,9 +25,9 @@ export default function LatestResearchFormat({ data }: { data: Data } ) {
       </div>
       <div>
         <h3 className="font-serif text-xl font-bold mb-2">
-          <a href="#" className="hover:text-red-600">
+          <Link href="/" className="hover:text-red-600">
             {data.title}
-          </a>
+          </Link>
         </h3>
         <p className="text-gray-700 mb-2">
           {data.description}

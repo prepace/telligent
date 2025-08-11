@@ -98,7 +98,8 @@ const categories = [
 export function CategoriesTable() {
   const [searchTerm, setSearchTerm] = useState("")
   const [currentPage, setCurrentPage] = useState(1)
-  const [editCategory, setEditCategory] = useState<any>(null)
+  // eslint-disable-next-line
+	const [editCategory, setEditCategory] = useState<any>(null);
   const [categoryToDelete, setCategoryToDelete] = useState<string | null>(null)
 
   const itemsPerPage = 5
@@ -129,157 +130,174 @@ export function CategoriesTable() {
   }
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <div className="flex w-full max-w-sm items-center space-x-2">
-          <div className="relative flex-1">
-            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder="Search categories..."
-              className="pl-8"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
-        </div>
-      </div>
+			<div className="space-y-4">
+				<div className="flex items-center justify-between">
+					<div className="flex w-full max-w-sm items-center space-x-2">
+						<div className="relative flex-1">
+							<Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+							<Input
+								type="search"
+								placeholder="Search categories..."
+								className="pl-8"
+								value={searchTerm}
+								onChange={(e) => setSearchTerm(e.target.value)}
+							/>
+						</div>
+					</div>
+				</div>
 
-      <div className="rounded-md border">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead>Slug</TableHead>
-              <TableHead>Articles</TableHead>
-              <TableHead>Created</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {paginatedCategories.length > 0 ? (
-              paginatedCategories.map((category) => (
-                <TableRow key={category.id}>
-                  <TableCell className="font-medium">{category.name}</TableCell>
-                  <TableCell>{category.slug}</TableCell>
-                  <TableCell>{category.articleCount}</TableCell>
-                  <TableCell>{category.createdAt}</TableCell>
-                  <TableCell className="text-right">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                          <span className="sr-only">Open menu</span>
-                          <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <Dialog>
-                          <DialogTrigger asChild>
-                            <DropdownMenuItem
-                              onSelect={(e) => {
-                                e.preventDefault()
-                                setEditCategory(category)
-                              }}
-                            >
-                              <Pencil className="mr-2 h-4 w-4" />
-                              Edit
-                            </DropdownMenuItem>
-                          </DialogTrigger>
-                          <DialogContent>
-                            <DialogHeader>
-                              <DialogTitle>Edit Category</DialogTitle>
-                              <DialogDescription>Make changes to the category here.</DialogDescription>
-                            </DialogHeader>
-                            <div className="grid gap-4 py-4">
-                              <div className="grid grid-cols-4 items-center gap-4">
-                                <Label htmlFor="name" className="text-right">
-                                  Name
-                                </Label>
-                                <Input id="name" defaultValue={editCategory?.name} className="col-span-3" />
-                              </div>
-                              <div className="grid grid-cols-4 items-center gap-4">
-                                <Label htmlFor="slug" className="text-right">
-                                  Slug
-                                </Label>
-                                <Input id="slug" defaultValue={editCategory?.slug} className="col-span-3" />
-                              </div>
-                            </div>
-                            <DialogFooter>
-                              <Button type="submit">Save changes</Button>
-                            </DialogFooter>
-                          </DialogContent>
-                        </Dialog>
-                        <DropdownMenuSeparator />
-                        <AlertDialog>
-                          <AlertDialogTrigger asChild>
-                            <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-                              <Trash2 className="mr-2 h-4 w-4" />
-                              Delete
-                            </DropdownMenuItem>
-                          </AlertDialogTrigger>
-                          <AlertDialogContent>
-                            <AlertDialogHeader>
-                              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                              <AlertDialogDescription>
-                                This action cannot be undone. This will permanently delete the category "{category.name}
-                                " and may affect articles using this category.
-                              </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                              <AlertDialogCancel>Cancel</AlertDialogCancel>
-                              <AlertDialogAction
-                                onClick={() => handleDeleteCategory()}
-                                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-                              >
-                                Delete
-                              </AlertDialogAction>
-                            </AlertDialogFooter>
-                          </AlertDialogContent>
-                        </AlertDialog>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </TableCell>
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={5} className="h-24 text-center">
-                  No categories found.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </div>
+				<div className="rounded-md border">
+					<Table>
+						<TableHeader>
+							<TableRow>
+								<TableHead>Name</TableHead>
+								<TableHead>Slug</TableHead>
+								<TableHead>Articles</TableHead>
+								<TableHead>Created</TableHead>
+								<TableHead className="text-right">Actions</TableHead>
+							</TableRow>
+						</TableHeader>
+						<TableBody>
+							{paginatedCategories.length > 0 ? (
+								paginatedCategories.map((category) => (
+									<TableRow key={category.id}>
+										<TableCell className="font-medium">
+											{category.name}
+										</TableCell>
+										<TableCell>{category.slug}</TableCell>
+										<TableCell>{category.articleCount}</TableCell>
+										<TableCell>{category.createdAt}</TableCell>
+										<TableCell className="text-right">
+											<DropdownMenu>
+												<DropdownMenuTrigger asChild>
+													<Button variant="ghost" className="h-8 w-8 p-0">
+														<span className="sr-only">Open menu</span>
+														<MoreHorizontal className="h-4 w-4" />
+													</Button>
+												</DropdownMenuTrigger>
+												<DropdownMenuContent align="end">
+													<DropdownMenuLabel>Actions</DropdownMenuLabel>
+													<Dialog>
+														<DialogTrigger asChild>
+															<DropdownMenuItem
+																onSelect={(e) => {
+																	e.preventDefault();
+																	setEditCategory(category);
+																}}
+															>
+																<Pencil className="mr-2 h-4 w-4" />
+																Edit
+															</DropdownMenuItem>
+														</DialogTrigger>
+														<DialogContent>
+															<DialogHeader>
+																<DialogTitle>Edit Category</DialogTitle>
+																<DialogDescription>
+																	Make changes to the category here.
+																</DialogDescription>
+															</DialogHeader>
+															<div className="grid gap-4 py-4">
+																<div className="grid grid-cols-4 items-center gap-4">
+																	<Label htmlFor="name" className="text-right">
+																		Name
+																	</Label>
+																	<Input
+																		defaultValue={editCategory?.name}
+																		className="col-span-3"
+																	/>
+																</div>
+																<div className="grid grid-cols-4 items-center gap-4">
+																	<Label htmlFor="slug" className="text-right">
+																		Slug
+																	</Label>
+																	<Input
+																		defaultValue={editCategory?.slug}
+																		className="col-span-3"
+																	/>
+																</div>
+															</div>
+															<DialogFooter>
+																<Button type="submit">Save changes</Button>
+															</DialogFooter>
+														</DialogContent>
+													</Dialog>
+													<DropdownMenuSeparator />
+													<AlertDialog>
+														<AlertDialogTrigger asChild>
+															<DropdownMenuItem
+																onSelect={(e) => e.preventDefault()}
+															>
+																<Trash2 className="mr-2 h-4 w-4" />
+																Delete
+															</DropdownMenuItem>
+														</AlertDialogTrigger>
+														<AlertDialogContent>
+															<AlertDialogHeader>
+																<AlertDialogTitle>
+																	Are you absolutely sure?
+																</AlertDialogTitle>
+																<AlertDialogDescription>
+																	This action cannot be undone. This will
+																	permanently delete the category &quot;{category.name}&quot; and may affect articles using
+																	this category.
+																</AlertDialogDescription>
+															</AlertDialogHeader>
+															<AlertDialogFooter>
+																<AlertDialogCancel>Cancel</AlertDialogCancel>
+																<AlertDialogAction
+																	onClick={() => handleDeleteCategory()}
+																	className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+																>
+																	Delete
+																</AlertDialogAction>
+															</AlertDialogFooter>
+														</AlertDialogContent>
+													</AlertDialog>
+												</DropdownMenuContent>
+											</DropdownMenu>
+										</TableCell>
+									</TableRow>
+								))
+							) : (
+								<TableRow>
+									<TableCell colSpan={5} className="h-24 text-center">
+										No categories found.
+									</TableCell>
+								</TableRow>
+							)}
+						</TableBody>
+					</Table>
+				</div>
 
-      {/* Pagination */}
-      {totalPages > 1 && (
-        <div className="flex items-center justify-end space-x-2 py-4">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-            disabled={currentPage === 1}
-          >
-            <ChevronLeft className="h-4 w-4" />
-            <span className="sr-only">Previous Page</span>
-          </Button>
-          <div className="text-sm text-muted-foreground">
-            Page {currentPage} of {totalPages}
-          </div>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-            disabled={currentPage === totalPages}
-          >
-            <ChevronRight className="h-4 w-4" />
-            <span className="sr-only">Next Page</span>
-          </Button>
-        </div>
-      )}
-    </div>
-  )
+				{/* Pagination */}
+				{totalPages > 1 && (
+					<div className="flex items-center justify-end space-x-2 py-4">
+						<Button
+							variant="outline"
+							size="sm"
+							onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+							disabled={currentPage === 1}
+						>
+							<ChevronLeft className="h-4 w-4" />
+							<span className="sr-only">Previous Page</span>
+						</Button>
+						<div className="text-sm text-muted-foreground">
+							Page {currentPage} of {totalPages}
+						</div>
+						<Button
+							variant="outline"
+							size="sm"
+							onClick={() =>
+								setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+							}
+							disabled={currentPage === totalPages}
+						>
+							<ChevronRight className="h-4 w-4" />
+							<span className="sr-only">Next Page</span>
+						</Button>
+					</div>
+				)}
+			</div>
+		);
 }
 

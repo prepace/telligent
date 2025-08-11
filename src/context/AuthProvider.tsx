@@ -1,5 +1,5 @@
 "use client";
-import { login, register } from "@/actions/auth";
+import { login } from "@/actions/auth"; // register
 import { supabase } from "@/config/supabase";
 import type { AuthContextError, AuthContextProviderProps, IAuthContext, User } from "@/types";
 import { logAuthEvent } from "@/utils/helpers";
@@ -102,9 +102,9 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = (props) =
 			if (signOutError) {
 				throw signOutError;
 			}
-			const response = await fetch('/api/login', {
-				method: 'DELETE',
-			})
+			// const response = await fetch('/api/login', {
+			// 	method: 'DELETE',
+			// })
 			setUser(null);
 			setIsLoggedIn(false);
 			router.push("/");

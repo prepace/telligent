@@ -6,14 +6,15 @@ import Image from "next/image"
 import image03 from "../../../public/image03.jpeg"
 
 type Comment = {
-  id: string
-  author: string
-  authorImage: any
-  date: string
-  content: string
-  likes: number
-  replies?: Comment[]
-}
+	id: string;
+	author: string;
+	// eslint-disable-next-line
+	authorImage: any;
+	date: string;
+	content: string;
+	likes: number;
+	replies?: Comment[];
+};
 
 export default function CommentSection() {
   const [comments, setComments] = useState<Comment[]>([

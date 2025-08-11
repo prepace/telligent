@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Description } from "@radix-ui/react-dialog"
+// import { Description } from "@radix-ui/react-dialog"
 
 export default function Subscribe() {
   return (
@@ -16,11 +16,11 @@ export default function Subscribe() {
       </div>
       <p className="text-xs text-gray-600 mt-2">
         By signing up you agree to our{" "}
-        <a href="#" className="underline">
+        <a href="/terms" className="underline">
           Terms of Use
         </a>{" "}
         and{" "}
-        <a href="#" className="underline">
+        <a href="/privacy" className="underline">
           Privacy Policy
         </a>
       </p>

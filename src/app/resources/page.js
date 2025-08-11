@@ -57,7 +57,7 @@ export default function ResourcesPage() {
               </div>
               <div className="bg-white p-5 rounded-md shadow-sm border border-gray-100">
                 <h3 className="font-semibold text-lg text-black mb-2">Support Groups</h3>
-                <p className="text-black mb-3">Connect with others who understand what you're going through.</p>
+                <p className="text-black mb-3">Connect with others who understand what you&apos;re going through.</p>
                 <Link href="#" className="inline-flex items-center text-red-600 hover:text-red-700">
                   Find support groups <ExternalLink size={16} className="ml-1" />
                 </Link>

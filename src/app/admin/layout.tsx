@@ -1,28 +1,29 @@
 import type React from "react";
-import { Inter } from "next/font/google";
+// TODO: Inter font import removed until needed
 import "../globals.css";
 import Sidebar from "@/components/admin/sidebar";
 
-const inter = Inter({ subsets: ["latin"] });
+// TODO: Inter font reserved for future global font usage
+// const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "News Admin Dashboard",
-  description: "Admin dashboard for managing news articles",
+	title: "News Admin Dashboard",
+	description: "Admin dashboard for managing news articles",
 };
 
 export default function AdminLayout({
-  children,
+	children,
 }: {
-  children: React.ReactNode;
+	children: React.ReactNode;
 }) {
-  return (
-    <div className="flex bg-gray-100">
-      {/* Sidebar */}
-      <Sidebar />
-      {/* Main content */}
-      <div className="flex-1 md:ml-16">
-        <main className="p-6">{children}</main>
-      </div>
-    </div>
-  );
+	return (
+		<div className="flex bg-gray-100">
+			{/* Sidebar */}
+			<Sidebar />
+			{/* Main content */}
+			<div className="flex-1 md:ml-16">
+				<main className="p-6">{children}</main>
+			</div>
+		</div>
+	);
 }

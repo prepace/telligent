@@ -21,6 +21,7 @@ export async function getArticleById(id: string) {
 }
 
 // Mock function to create a new article
+// eslint-disable-next-line
 export async function createArticle(articleData: any) {
   console.log("Creating article:", articleData)
   // In a real app, you would save this to your database
@@ -31,13 +32,14 @@ export async function createArticle(articleData: any) {
 }
 
 // Mock function to update an article
+// eslint-disable-next-line
 export async function updateArticle(id: string, articleData: any) {
-  console.log(`Updating article ${id}:`, articleData)
-  // In a real app, you would update this in your database
-  return {
-    id,
-    ...articleData,
-  }
+	console.log(`Updating article ${id}:`, articleData);
+	// In a real app, you would update this in your database
+	return {
+		id,
+		...articleData,
+	};
 }
 
 // Mock function to delete an article

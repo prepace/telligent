@@ -1,7 +1,7 @@
 "use client"
 
 import { ChevronDown, Upload, X } from "lucide-react";
-import { useState } from "react";
+import Image from "next/image";
 
 interface ChildProps {
   setImageDescription: (value: string) => void;
@@ -61,7 +61,7 @@ export default function EditingMode({
     setCategory, 
     setTagsInput,
     setMetaTitle,
-    handleSubmit, 
+    // handleSubmit, 
     setAuthorName,
     setPublishDate, 
     setAuthorEmail, 
@@ -71,8 +71,8 @@ export default function EditingMode({
     setImageDescription, 
   }: ChildProps) {
 
-  const handleInput = (event: any) => {
-    const value = event.target.value;
+  const handleInput = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const value = event.currentTarget.value;
     setTagsInput(value);
     
     if (event.key === ' ' || event.key === 'Enter') {
@@ -235,21 +235,22 @@ export default function EditingMode({
       >
         {featuredImage ? (
           // Display Preview When File is Selected
-          <div className="relative text-center">
-            <img
-              src={URL.createObjectURL(featuredImage)}
-              alt="Uploaded preview"
-              className="max-h-48 rounded-md shadow-md"
-            />
-            <button
-              className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded hover:bg-red-600"
-              onClick={() => {
-                setFeaturedImage(null);
-              }}
-            >
-              Remove
-            </button>
-          </div>
+            <>
+                  <Image
+                    src={URL.createObjectURL(featuredImage)}
+                    alt="Uploaded preview"
+                    width={192}
+                    height={192}
+                    className="max-h-48 rounded-md shadow-md object-contain" />
+                  <button
+                      className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded hover:bg-red-600"
+                      onClick={() => {
+                        setFeaturedImage(null);
+                      } }
+                    >
+                    Remove
+                  </button>
+            </>
         ) : (
           // Default Upload UI
           <div className="space-y-1 text-center">

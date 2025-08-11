@@ -1,5 +1,3 @@
-import DOMPurify from 'dompurify';
-
 export const formatDate = (dateString: string) => {
   const date = new Date(dateString)
 
@@ -23,9 +21,9 @@ export function formatDateArticle(input: string) {
       "July", "August", "September", "October", "November", "December"
   ];
 
-  const weekdays = [
-      "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
-  ];
+  // const weekdays = [
+  //     "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+  // ];
 
   // Format the date
   const day = date.getDate();
