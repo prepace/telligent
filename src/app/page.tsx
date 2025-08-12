@@ -6,12 +6,12 @@ import Sidebar from "@/components/Sidebar";
 import LatestResearchFormat from "@/components/Formats/LatestResearch";
 import LatestStoriesFormat from "@/components/Formats/LatestStories";
 
-import Image01 from "../../public/image01.jpeg";
-import Image02 from "../../public/image02.jpeg";
-import Image03 from "../../public/image03.jpeg";
-// import Image04 from "../../public/image04.jpeg"
-import Image05 from "../../public/Image05.jpg";
-import Image06 from "../../public/Image06.jpeg";
+import Image01 from "../../public/tta6.jpg";
+import Image02 from "../../public/tta5.jpg";
+import Image03 from "../../public/tta2.jpg";
+// import Image04 from "../../public/tta4.jpg"
+import Image05 from "../../public/tta1.jpg";
+import Image06 from "../../public/tta3.png";
 
 // import { Button } from "@/components/ui/button"
 // import { Input } from "@/components/ui/input"

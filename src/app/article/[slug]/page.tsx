@@ -1,6 +1,6 @@
 import Image from "next/image"
 import CommentSection from "@/components/Comments/comments"
-import image01 from "../../../../public/image01.jpeg"
+import image01 from "../../../../public/tta6.jpg"
 
 import { Button } from "@/components/ui/button"
 import { Share2, Bookmark } from "lucide-react"

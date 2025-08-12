@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from "react";
 
 import Image, { type StaticImageData } from "next/image";
-import image03 from "../../../public/image03.jpeg";
+import image03 from "../../../public/tta2.jpg";
 
 type Comment = {
 	id: string;
