@@ -1,7 +1,7 @@
 
 import Image from "next/image"
 import Image04 from "../../public/image04.jpeg"
-import { Link } from "lucide-react"
+import Link from "next/link"
 
 export default function WellnessGuide() {
   return (

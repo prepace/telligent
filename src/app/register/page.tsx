@@ -46,10 +46,10 @@ export default function SignupPage() {
           </svg>
         </div>
 
-        <h1 className="text-2xl font-bold text-center mb-2">Register for your Health account</h1>
+        <h1 className="text-2xl font-bold text-center mb-2">Register for Telligent.Agency</h1>
         <p className="text-center mb-6">
           Already have an account?{" "}
-          <Link href="/signin" className="text-black font-semibold">
+          <Link href="/login" className="text-black font-semibold">
             Login
           </Link>
         </p>
